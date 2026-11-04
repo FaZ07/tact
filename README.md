@@ -1,4 +1,6 @@
-# kutti
+# Tact
+
+Tact: knowing what to do, and when not to.
 
 A half-billion-parameter model fine-tuned to turn a phone request into one
 tool call, and scored first on the mistake that hurts: **acting when it
@@ -49,36 +51,36 @@ What keeps the test honest:
 |---|---|
 | `keyword` | routes by the words in each tool's own name and description; never fills arguments. The floor. |
 | `qwen0.5b-base` | the model before fine-tuning, same prompt |
-| `kutti-ft` | the same model after LoRA fine-tuning |
+| `tact-ft` | the same model after LoRA fine-tuning |
 | a large API model | e.g. Llama 3.3 70B on Groq, same prompt |
 
-Every system gets the identical prompt (`kutti/prompt.py`).
+Every system gets the identical prompt (`tact/prompt.py`).
 
 ## Run it
 
 The eval needs only Python 3.10+ and the standard library.
 
 ```
-python -m kutti.run gen          # regenerate data/
-python -m kutti.run baseline     # keyword router
-python -m kutti.run report       # score everything in results/ -> RESULTS.md
+python -m tact.run gen          # regenerate data/
+python -m tact.run baseline     # keyword router
+python -m tact.run report       # score everything in results/ -> RESULTS.md
 python tests/run_tests.py        # N/N checks passed
 ```
 
 Large API model (any OpenAI-compatible endpoint; resumable):
 
 ```
-python -m kutti.run predict --system groq-llama-3.3-70b --base-url https://api.groq.com/openai/v1 --model llama-3.3-70b-versatile --key-env GROQ_API_KEY
+python -m tact.run predict --system groq-llama-3.3-70b --base-url https://api.groq.com/openai/v1 --model llama-3.3-70b-versatile --key-env GROQ_API_KEY
 ```
 
 Fine-tuning and the two Qwen systems need `torch transformers peft` and a
 GPU (a free Colab T4 works; the 0.5B model also fits a 4 GB laptop GPU):
 
 ```
-python train/train_lora.py --base Qwen/Qwen2.5-0.5B-Instruct --out runs/kutti-0.5b
-python train/predict_hf.py --adapter runs/kutti-0.5b --system kutti-ft
+python train/train_lora.py --base Qwen/Qwen2.5-0.5B-Instruct --out runs/tact-0.5b
+python train/predict_hf.py --adapter runs/tact-0.5b --system tact-ft
 python train/predict_hf.py --system qwen0.5b-base
-python -m kutti.run report
+python -m tact.run report
 ```
 
 The training recipe is fixed in the script (2 epochs, lr 2e-4, LoRA r=16)

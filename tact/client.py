@@ -14,7 +14,7 @@ def chat(base_url: str, model: str, messages: list[dict], key: str = "",
          max_tokens: int = 160, retries: int = 6) -> str:
     body = json.dumps({"model": model, "messages": messages, "temperature": 0,
                        "max_tokens": max_tokens}).encode()
-    headers = {"Content-Type": "application/json", "User-Agent": "kutti/0.1"}
+    headers = {"Content-Type": "application/json", "User-Agent": "tact/0.1"}
     if key:
         headers["Authorization"] = f"Bearer {key}"
     url = base_url.rstrip("/") + "/chat/completions"

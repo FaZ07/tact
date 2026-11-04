@@ -1,12 +1,12 @@
 """
-LoRA fine-tune. The only part of kutti that needs third-party packages:
+LoRA fine-tune. The only part of tact that needs third-party packages:
 
     pip install torch transformers peft
 
 Fits a free Colab T4, and the 0.5B model also fits a 4 GB GTX 1650 Ti.
 Run from the repo root:
 
-    python train/train_lora.py --base Qwen/Qwen2.5-0.5B-Instruct --out runs/kutti-0.5b
+    python train/train_lora.py --base Qwen/Qwen2.5-0.5B-Instruct --out runs/tact-0.5b
 
 Fixed recipe, chosen before any test score existed: 2 epochs, lr 2e-4, LoRA
 r=16 on every attention and MLP projection, loss on the answer tokens only.
@@ -29,7 +29,7 @@ import torch  # noqa: E402
 from peft import LoraConfig, get_peft_model  # noqa: E402
 from transformers import AutoModelForCausalLM, AutoTokenizer, set_seed  # noqa: E402
 
-from kutti import gen, prompt  # noqa: E402
+from tact import gen, prompt  # noqa: E402
 
 
 def encode(tok, row: dict, max_len: int) -> dict:
@@ -59,7 +59,7 @@ def batches(items: list[dict], size: int, pad_id: int, seed: int, epoch: int):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--base", default="Qwen/Qwen2.5-0.5B-Instruct")
-    ap.add_argument("--out", default="runs/kutti-0.5b")
+    ap.add_argument("--out", default="runs/tact-0.5b")
     ap.add_argument("--epochs", type=int, default=2)
     ap.add_argument("--lr", type=float, default=2e-4)
     ap.add_argument("--batch", type=int, default=4)

@@ -3,11 +3,11 @@ Greedy predictions on the test set with a Hugging Face model, with or without
 the LoRA adapter. Same prompt as every other system.
 
     # the fine-tuned model
-    python train/predict_hf.py --base Qwen/Qwen2.5-0.5B-Instruct --adapter runs/kutti-0.5b --system kutti-ft
+    python train/predict_hf.py --base Qwen/Qwen2.5-0.5B-Instruct --adapter runs/tact-0.5b --system tact-ft
     # the base model it started from (the baseline it has to beat)
     python train/predict_hf.py --base Qwen/Qwen2.5-0.5B-Instruct --system qwen0.5b-base
 
-Then `python -m kutti.run report`.
+Then `python -m tact.run report`.
 """
 from __future__ import annotations
 
@@ -21,7 +21,7 @@ sys.path.insert(0, ROOT)
 import torch  # noqa: E402
 from transformers import AutoModelForCausalLM, AutoTokenizer  # noqa: E402
 
-from kutti import prompt, run  # noqa: E402
+from tact import prompt, run  # noqa: E402
 
 
 def main():

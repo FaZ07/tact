@@ -16,8 +16,8 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 
-from kutti import baseline, gen, prompt, run, score, stats  # noqa: E402
-from kutti.tools import BY_NAME, TOOLS, acts  # noqa: E402
+from tact import baseline, gen, prompt, run, score, stats  # noqa: E402
+from tact.tools import BY_NAME, TOOLS, acts  # noqa: E402
 
 PASSED, FAILED = [], []
 
@@ -213,7 +213,7 @@ check("RESULTS.md regenerates byte-identically",
 
 # ----------------------------------------------------------------- ascii
 files = ["data/train.jsonl", "data/test.jsonl", "RESULTS.md", "README.md"] + [
-    os.path.join(d, f) for d in ("kutti", "tests", "train")
+    os.path.join(d, f) for d in ("tact", "tests", "train")
     for f in sorted(os.listdir(os.path.join(ROOT, d))) if f.endswith(".py")]
 non_ascii = [f for f in files if not read(f).isascii()]
 check("all text files are ASCII", not non_ascii, str(non_ascii))

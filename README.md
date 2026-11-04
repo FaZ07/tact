@@ -2,6 +2,9 @@
 
 Tact: knowing what to do, and when not to.
 
+**Status:** the benchmark, scorer and baseline are done; the fine-tuning run
+is next. Real numbers will land in [RESULTS.md](RESULTS.md).
+
 A half-billion-parameter model fine-tuned to turn a phone request into one
 tool call, and scored first on the mistake that hurts: **acting when it
 should not.**
